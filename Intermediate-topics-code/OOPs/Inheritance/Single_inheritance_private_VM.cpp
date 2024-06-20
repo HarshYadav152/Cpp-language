@@ -1,0 +1,52 @@
+#include <iostream>
+using namespace std;
+
+class base
+{
+    int data1; // Bydefault it is private hece it is not inheritable
+public:
+    int data2;
+    void setData();
+    int getData1();
+    int getData2();
+};
+void base ::setData()
+{
+    data1 = 10;
+    data2 = 20;
+}
+int base ::getData1()
+{
+    return data1;
+}
+int base ::getData2()
+{
+    return data2;
+}
+class derived : private base
+{
+    int data3; // private
+public:
+    void process();
+    void display();
+};
+
+void derived ::process()
+{
+    setData();
+    data3 = data2 * getData1();
+}
+void derived ::display()
+{
+    cout << "value of data 1 is " << getData1() << endl; // we cannot access directly data1 because it is a private member of the base class ,so we use getdata1()
+    cout << "value of data 2 is " << data2 << endl;
+    cout << "value of data 3 is " << data3 << endl;
+} 
+int main()
+{
+    derived der;
+    // der.setData(); //we can't directly call setData() in private visibility mode becaluse all public member of the base class is now private of the deriverd class    
+    der.process();
+    der.display();
+    return 0;
+}
